@@ -18,7 +18,7 @@ const storage=multer.diskStorage({
     
 })
 
-let filsize=2*1024*1024;
+let filsize=2*1000*1000;
 
 const fileFilter=(req,file,cb)=>
 {
