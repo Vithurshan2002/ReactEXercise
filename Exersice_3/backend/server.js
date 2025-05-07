@@ -18,11 +18,11 @@ const storage=multer.diskStorage({
     
 })
 
-let filsize=1*1024*1024
+let filsize=2*1024*1024;
 
 const fileFilter=(req,file,cb)=>
 {
-    const allowedtype=  /jpeg|jpg|png|pdf/;
+    const allowedtype=  /jpeg|jpg|png/;
     const isallowed=allowedtype.test(file.minetype);
     if(isallowed){
         cb(null,true)
