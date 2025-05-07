@@ -1,5 +1,4 @@
-const { json } = require('body-parser');
-const { error } = require('console');
+
 const express=require('express');
 const multer=require('multer');
 const app=express();
@@ -36,7 +35,7 @@ const fileFilter=(req,file,cb)=>
 
 //multerconfig
 const upload=multer(
-    {
+    { 
         storage:storage,
         limits:{
             fileSize:filsize,
