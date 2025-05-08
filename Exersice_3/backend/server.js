@@ -3,6 +3,8 @@ const express=require('express');
 const multer=require('multer');
 const app=express();
 const path=require('path');
+const cors=require('cors');
+const bodyParser = require('body-parser');
 
 const storage=multer.diskStorage({
     destination:(req,file,cb)=>{
@@ -18,12 +20,12 @@ const storage=multer.diskStorage({
     
 })
 
-let filsize=2*1000*1000;
+let filsize=30*1024*1024;
 
 const fileFilter=(req,file,cb)=>
 {
-    const allowedtype=  /jpeg|jpg|png/;
-    const isallowed=allowedtype.test(file.minetype);
+    const allowedtype=  /jpeg|jpg|png|mp4|pdf/;
+    const isallowed=allowedtype.test(file.mimetype);
     if(isallowed){
         cb(null,true)
     }
@@ -43,8 +45,11 @@ const upload=multer(
         fileFilter:fileFilter,
     }
 )
+app.use(express.json());
+app.use(bodyParser.urlencoded())
+app.use(cors());
 
-app.post('/imageuploading',upload.array("imagedemo",5),(req,res,next)=>{
+app.post('/imageuploading',upload.array("imagedemo",4),(req,res,next)=>{
     
        res.json({message:"ImageUplaoded",data:req.files})
        
@@ -61,6 +66,7 @@ app.use((error,req,res,next)=>{
         }
     }
     else{
+        console.log(error);
         res.json({message:"differnt file type"});
     }
 });
