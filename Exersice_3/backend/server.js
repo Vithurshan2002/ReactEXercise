@@ -5,7 +5,7 @@ const app=express();
 const path=require('path');
 const cors=require('cors');
 const bodyParser = require('body-parser');
-
+const morgan = require('morgan');
 const storage=multer.diskStorage({
     destination:(req,file,cb)=>{
             cb(null,'./uploads');
@@ -45,6 +45,7 @@ const upload=multer(
         fileFilter:fileFilter,
     }
 )
+app.use(morgan('combined'));
 app.use(express.json());
 app.use(bodyParser.urlencoded())
 app.use(cors());

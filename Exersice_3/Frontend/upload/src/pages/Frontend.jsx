@@ -28,25 +28,18 @@ const Frontend = () => {
    
     const[file,setfile]=useState([]);
     const upload=async()=>{
-        if(file.length<=4){
-            const fd=new FormData();
-            file.forEach((img) => fd.append('imagedemo', img));
-        }
-       else{
-        alert("maximum 4 image is posible to select")
-       
-        return;
-       }
+      
        
         try{
-           
+            const fd=new FormData();
+            file.forEach((img) => fd.append('imagedemo', img));
             const data=await axios.post("http://localhost:3000/imageuploading",fd);
           console.log(data);
           
         }
         catch(er)
         {
-            console.log(er.data);
+            console.log(er.response.data.message);
         }
        
     }
